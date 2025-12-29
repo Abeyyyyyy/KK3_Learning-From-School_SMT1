@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan Digital - Vue.js</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-book me-2"></i>Perpustakaan Digital
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{ 'active': currentView === 'dashboard' }" href="#" @click="changeView('dashboard')">
+                                <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{ 'active': currentView === 'books' }" href="#" @click="changeView('books')">
+                                <i class="fas fa-book me-1"></i> Data Buku
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{ 'active': currentView === 'borrowings' }" href="#" @click="changeView('borrowings')">
+                                <i class="fas fa-handshake me-1"></i> Peminjaman
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container my-4">
+                <!-- Dashboard View -->
+                <div v-if="currentView === 'dashboard'" class="view">
+                    <h2 class="page-title">Dashboard Perpustakaan</h2>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-number">{{ books.length }}</div>
+                                    <div class="stat-label">Total Buku</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-number">{{ members.length }}</div>
+                                    <div class="stat-label">Anggota Terdaftar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="stat-number">{{ borrowings.length }}</div>
+                                    <div class="stat-label">Total Peminjaman</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-line me-2"></i>Statistik Peminjaman Bulan Ini
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="borrowingChart" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-bookmark me-2"></i>Kategori Buku Paling Populer
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="categoryChart" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-users me-2"></i>Anggota Terdaftar
+                                </div>
+                                <div class="card-body">
+                                    <div class="members-slider" ref="membersSlider">
+                                        <div class="member-card" v-for="member in members" :key="member.nis">
+                                            <div class="member-avatar">
+                                                {{ getInitials(member.name) }}
+                                            </div>
+                                            <div class="member-name">{{ member.name }}</div>
+                                            <div class="member-nis">NIS: {{ member.nis }}</div>
+                                            <div class="member-class">{{ member.class }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slider-controls">
+                                        <button class="slider-btn" @click="scrollMembers('left')">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button class="slider-btn" @click="scrollMembers('right')">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <i class="fas fa-clock me-2"></i>Peminjaman Terbaru
+                                </div>
+                                <div class="card-body">
+                                    <div v-if="recentBorrowings.length > 0">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Peminjam</th>
+                                                        <th>Judul Buku</th>
+                                                        <th>Tanggal Pinjam</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="borrowing in recentBorrowings" :key="borrowing.id">
+                                                        <td>{{ borrowing.memberName }}</td>
+                                                        <td>{{ borrowing.bookTitle }}</td>
+                                                        <td>{{ formatDate(borrowing.borrowDate) }}</td>
+                                                        <td>
+                                                            <span class="badge" :class="getStatusBadgeClass(borrowing.status)">
+                                                                {{ borrowing.status }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div v-else class="empty-state">
+                                        <i class="fas fa-inbox"></i>
+                                        <h4>Belum ada peminjaman</h4>
+                                        <p>Data peminjaman akan muncul di sini</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Books View -->
+                <div v-if="currentView === 'books'" class="view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="page-title">Manajemen Data Buku</h2>
+                        <button class="btn btn-primary" @click="showBookForm()">
+                            <i class="fas fa-plus me-1"></i> Tambah Buku
+                        </button>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="search-box">
+                                        <i class="fas fa-search"></i>
+                                        <input type="text" class="form-control" placeholder="Cari buku..." v-model="bookSearchQuery">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" v-model="bookCategoryFilter">
+                                        <option value="">Semua Kategori</option>
+                                        <option v-for="category in bookCategories" :value="category">{{ category }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div v-if="filteredBooks.length > 0" class="row">
+                        <div class="col-md-6 col-lg-4" v-for="book in filteredBooks" :key="book.id">
+                            <div class="card h-100">
+                                <div class="book-cover">
+                                    {{ book.title }}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="book-title">{{ book.title }}</h5>
+                                    <p class="book-info">
+                                        <i class="fas fa-user me-1"></i> {{ book.author }}<br>
+                                        <i class="fas fa-building me-1"></i> {{ book.publisher }}<br>
+                                        <i class="fas fa-calendar me-1"></i> {{ book.year }}<br>
+                                        <span class="badge" style="background-color: var(--medium-purple);">{{ book.category }}</span>
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-outline-primary" @click="editBook(book)">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" @click="deleteBook(book.id)">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success" @click="downloadBookFile(book)">
+                                            <i class="fas fa-download"></i> File
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="empty-state">
+                        <i class="fas fa-book"></i>
+                        <h4>Tidak ada buku</h4>
+                        <p>Tambahkan buku baru untuk memulai</p>
+                    </div>
+                </div>
+
+                <!-- Borrowings View -->
+                <div v-if="currentView === 'borrowings'" class="view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="page-title">Manajemen Peminjaman</h2>
+                        <button class="btn btn-primary" @click="showBorrowingForm()">
+                            <i class="fas fa-plus me-1"></i> Tambah Peminjaman
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Peminjam</th>
+                                            <th>NIS</th>
+                                            <th>Judul Buku</th>
+                                            <th>Tanggal Pinjam</th>
+                                            <th>Tanggal Kembali</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="borrowing in borrowings" :key="borrowing.id">
+                                            <td>{{ borrowing.id }}</td>
+                                            <td>{{ borrowing.memberName }}</td>
+                                            <td>{{ getMemberNis(borrowing.memberName) }}</td>
+                                            <td>{{ borrowing.bookTitle }}</td>
+                                            <td>{{ formatDate(borrowing.borrowDate) }}</td>
+                                            <td>{{ formatDate(borrowing.returnDate) }}</td>
+                                            <td>
+                                                <span class="badge" :class="getStatusBadgeClass(borrowing.status)">
+                                                    {{ borrowing.status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn btn-sm btn-outline-primary" @click="editBorrowing(borrowing)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" @click="deleteBorrowing(borrowing.id)">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" @click="downloadBorrowingFile(borrowing)">
+                                                        <i class="fas fa-download"></i>
+                                                    </button>
+                                                    <button v-if="borrowing.status === 'Dipinjam'" class="btn btn-sm btn-outline-info" @click="returnBook(borrowing.id)">
+                                                        <i class="fas fa-undo"></i> Kembalikan
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Form Modal -->
+        <div class="modal fade" id="bookFormModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ isEditingBook ? 'Edit Buku' : 'Tambah Buku' }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="saveBook">
+                            <div class="mb-3">
+                                <label class="form-label">Judul Buku</label>
+                                <input type="text" class="form-control" v-model="bookForm.title" required>
+                                <div class="text-danger" v-if="bookFormErrors.title">{{ bookFormErrors.title }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Pengarang</label>
+                                <input type="text" class="form-control" v-model="bookForm.author" required>
+                                <div class="text-danger" v-if="bookFormErrors.author">{{ bookFormErrors.author }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Penerbit</label>
+                                <input type="text" class="form-control" v-model="bookForm.publisher" required>
+                                <div class="text-danger" v-if="bookFormErrors.publisher">{{ bookFormErrors.publisher }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tahun Terbit</label>
+                                <input type="number" class="form-control" v-model="bookForm.year" min="1900" :max="new Date().getFullYear()" required>
+                                <div class="text-danger" v-if="bookFormErrors.year">{{ bookFormErrors.year }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Kategori</label>
+                                <select class="form-select" v-model="bookForm.category" required>
+                                    <option value="">Pilih Kategori</option>
+                                    <option v-for="category in bookCategories" :value="category">{{ category }}</option>
+                                </select>
+                                <div class="text-danger" v-if="bookFormErrors.category">{{ bookFormErrors.category }}</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" @click="saveBook">{{ isEditingBook ? 'Update' : 'Simpan' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Borrowing Form Modal -->
+        <div class="modal fade" id="borrowingFormModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ isEditingBorrowing ? 'Edit Peminjaman' : 'Tambah Peminjaman' }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="saveBorrowing">
+                            <div class="mb-3">
+                                <label class="form-label">Nama Peminjam</label>
+                                <select class="form-select" v-model="borrowingForm.memberName" required>
+                                    <option value="">Pilih Peminjam</option>
+                                    <option v-for="member in members" :value="member.name">{{ member.name }} (NIS: {{ member.nis }})</option>
+                                </select>
+                                <div class="text-danger" v-if="borrowingFormErrors.memberName">{{ borrowingFormErrors.memberName }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Judul Buku</label>
+                                <select class="form-select" v-model="borrowingForm.bookTitle" required>
+                                    <option value="">Pilih Buku</option>
+                                    <option v-for="book in availableBooks" :value="book.title">{{ book.title }}</option>
+                                </select>
+                                <div class="text-danger" v-if="borrowingFormErrors.bookTitle">{{ borrowingFormErrors.bookTitle }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Pinjam</label>
+                                <input type="date" class="form-control" v-model="borrowingForm.borrowDate" required>
+                                <div class="text-danger" v-if="borrowingFormErrors.borrowDate">{{ borrowingFormErrors.borrowDate }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Kembali</label>
+                                <input type="date" class="form-control" v-model="borrowingForm.returnDate" required>
+                                <div class="text-danger" v-if="borrowingFormErrors.returnDate">{{ borrowingFormErrors.returnDate }}</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" @click="saveBorrowing">{{ isEditingBorrowing ? 'Update' : 'Simpan' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Perpustakaan Digital</span>
+                    </div>
+                    <div class="footer-team">
+                        <i class="fas fa-users"></i>
+                        <span><strong>Tim Pengembang:</strong> MK & Petani_Cokelat</span>
+                    </div>
+                    <div class="footer-copyright">
+                        <span>&copy; 2023</span>
+                        <i class="fas fa-heart"></i>
+                        <span>Dibuat dengan Vue.js</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
