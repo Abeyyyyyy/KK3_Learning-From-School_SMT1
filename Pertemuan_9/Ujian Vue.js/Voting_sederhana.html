@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="aset/logojpg.jpg">
+    <title>Voting Sederhana - Vue.js Examination</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/Voting_sederhana.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <a href="Home.html" class="title">
+                <div class="vue-icon">V</div>
+                Vue.js Examination
+            </a>
+         <div class="nav-links">
+                <a href="Daftar_belanja.html" class="nav-link" :class="{active: currentPage === 'shopping'}">Daftar belanja</a>
+                <a href="Daftar_siswa_kelas.html" class="nav-link" :class="{active: currentPage === 'students'}">Daftar Siswa Kelas</a>
+                <a href="Voting_sederhana.html" class="nav-link" :class="{active: currentPage === 'voting'}">Voting sederhana</a>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-vote-yea"></i> Voting Sederhana</h1>
+                <div class="election-title">Pemilihan Presiden Tahun 2030 - 2099</div>
+                <p>Pilih pasangan kandidat favorit Anda dan berikan suara!</p>
+            </div>
+            
+            <!-- Voting Container -->
+            <div class="voting-container">
+                <!-- Empty State -->
+                <div v-if="candidates.length === 0" class="empty-message">
+                    <i class="fas fa-users"></i>
+                    <p>Belum ada kandidat yang tersedia!<br>Tidak ada voting yang dapat dilakukan saat ini.</p>
+                </div>
+                
+                <!-- Candidates List -->
+                <div v-else>
+                    <div class="candidates-grid">
+                        <div v-for="(candidate, index) in candidates" :key="candidate.id" class="candidate-card">
+                            <div class="candidate-photos">
+                                <img :src="candidate.photo1" :alt="candidate.name1" class="candidate-photo">
+                                <img :src="candidate.photo2" :alt="candidate.name2" class="candidate-photo">
+                            </div>
+                            <div class="candidate-name">{{ candidate.name1 }} & {{ candidate.name2 }}</div>
+                            <div class="vote-count">
+                                <i class="fas fa-vote-yea"></i> {{ candidate.votes }} suara
+                            </div>
+                            <button @click="vote(index)" class="vote-btn">
+                                <i class="fas fa-hand-point-up"></i> Berikan Suara
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="total-votes">
+                        Total Suara: <span>{{ totalVotes }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    candidates: [
+                        { 
+                            id: 1, 
+                            name1: 'Ferry Irwandi',
+                            name2: 'Nazwa Shihab',
+                            votes: 24,
+                            photo1: 'aset/Potret_Ferry_Irwandi.jpg',
+                            photo2: 'aset/foto_Najwa.jpg'
+                        },
+                        { 
+                            id: 2, 
+                            name1: 'Timoty',
+                            name2: 'Rocky Gerung',
+                            votes: 31,
+                            photo1: 'aset/Bang Timothy.jpg',
+                            photo2: 'aset/Foto_bang rocky.jpg'
+                        }
+                    ]
+                }
+            },
+            computed: {
+                totalVotes() {
+                    return this.candidates.reduce((total, candidate) => total + candidate.votes, 0);
+                }
+            },
+            methods: {
+                vote(index) {
+                    this.candidates[index].votes++;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

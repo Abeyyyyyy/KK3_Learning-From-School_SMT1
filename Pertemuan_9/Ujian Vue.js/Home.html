@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Examination</title>
+    <link rel="icon" type="image/png" href="aset/logojpg.jpg">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="CSS/Home.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <nav class="navbar">
+           <a href="Home.html" class="title">
+                <div class="vue-icon">V</div>
+                Vue.js Examination
+            </a>
+            <div class="nav-links">
+                <a href="Daftar_belanja.html" class="nav-link" :class="{active: currentPage === 'shopping'}">Daftar belanja</a>
+                <a href="Daftar_siswa_kelas.html" class="nav-link" :class="{active: currentPage === 'students'}">Daftar Siswa Kelas</a>
+                <a href="Voting_sederhana.html" class="nav-link" :class="{active: currentPage === 'voting'}">Voting sederhana</a>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1 class="content-title">Vue.js Examination</h1>
+            <p class="content-description">
+                Kerjakan Aplikasi sederhana berikut dengan berbasis Vue.js CDN yang masing-masing menggabungkan:
+            </p>
+            
+            <!-- Features using v-for -->
+            <div class="features-grid">
+                <div class="feature-card" v-for="feature in vueFeatures" :key="feature.id">
+                    <h3>{{ feature.title }}</h3>
+                    <p>{{ feature.description }}</p>
+                </div>
+            </div>
+            
+            <!-- Conditional message using v-if -->
+            <div style="margin-top: 30px; text-align: center;">
+                <p v-if="showMessage" style="color: #42b883; font-weight: 600;">
+                    {{ message }}
+                </p>
+                <p v-else style="color: #e53e3e; font-weight: 600;">
+                    Silakan pilih salah satu menu di atas untuk memulai!
+                </p>
+            </div>
+            
+            <!-- Event handling example -->
+            <div style="margin-top: 20px; text-align: center;">
+                <button @click="toggleMessage" 
+                        style="background: #42b883; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    {{ buttonLabel }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    currentPage: 'home',
+                    showMessage: true,
+                    vueFeatures: [
+                        { id: 1, title: 'Interpolasi', description: 'Menampilkan data dinamis dalam template' },
+                        { id: 2, title: 'Binding Atribut', description: 'Mengikat atribut HTML ke data Vue' },
+                        { id: 3, title: 'Event Handling', description: 'Menangani event seperti klik dan input' },
+                        { id: 4, title: 'Kondisi (v-if)', description: 'Menampilkan/menyembunyikan elemen berdasarkan kondisi' },
+                        { id: 5, title: 'Perulangan (v-for)', description: 'Mengulang elemen berdasarkan data array' }
+                    ]
+                }
+            },
+            computed: {
+                message() {
+                    return 'Selamat datang di Vue.js Examination!';
+                },
+                buttonLabel() {
+                    return this.showMessage ? 'Sembunyikan Pesan' : 'Tampilkan Pesan';
+                }
+            },
+            methods: {
+                toggleMessage() {
+                    this.showMessage = !this.showMessage;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="aset/logojpg.jpg">
+    <title>Daftar Belanja - Vue.js Examination</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/Daftar_belanja.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <nav class="navbar">
+             <a href="Home.html" class="title">
+                <div class="vue-icon">V</div>
+                Vue.js Examination
+            </a>
+           <div class="nav-links">
+                <a href="Daftar_belanja.html" class="nav-link" :class="{active: currentPage === 'shopping'}">Daftar belanja</a>
+                <a href="Daftar_siswa_kelas.html" class="nav-link" :class="{active: currentPage === 'students'}">Daftar Siswa Kelas</a>
+                <a href="Voting_sederhana.html" class="nav-link" :class="{active: currentPage === 'voting'}">Voting sederhana</a>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-shopping-cart"></i> Daftar Belanja</h1>
+                <p>Tambahkan item belanjaan Anda dengan mudah</p>
+            </div>
+            
+            <!-- Shopping Form -->
+            <div class="shopping-form">
+                <div class="form-group">
+                    <input 
+                        v-model="newItem" 
+                        @keyup.enter="addItem" 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Masukkan item belanjaan..."
+                        :disabled="isAdding"
+                    >
+                    <button @click="addItem" class="add-btn" :disabled="!newItem.trim() || isAdding">
+                        <i class="fas fa-plus"></i> Tambah
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Shopping List -->
+            <div class="shopping-list">
+                <div class="list-header">
+                    <h2 class="list-title">Daftar Belanja Anda</h2>
+                    <div class="item-count">{{ shoppingList.length }} item</div>
+                </div>
+                
+                <!-- Empty State -->
+                <div v-if="shoppingList.length === 0" class="empty-message">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Daftar belanja Anda masih kosong!<br>Tambahkan item pertama Anda sekarang.</p>
+                </div>
+                
+                <!-- Shopping Items -->
+                <ul class="shopping-items" v-else>
+                    <li v-for="(item, index) in shoppingList" :key="item.id" class="shopping-item">
+                        <div class="item-number">{{ index + 1 }}</div>
+                        <div class="item-name">{{ item.name }}</div>
+                        <button @click="removeItem(index)" class="delete-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    newItem: '',
+                    shoppingList: [],
+                    isAdding: false
+                }
+            },
+            methods: {
+                addItem() {
+                    if (this.newItem.trim()) {
+                        this.isAdding = true;
+                        // Simulate async operation
+                        setTimeout(() => {
+                            this.shoppingList.push({
+                                id: Date.now(),
+                                name: this.newItem.trim()
+                            });
+                            this.newItem = '';
+                            this.isAdding = false;
+                        }, 100);
+                    }
+                },
+                removeItem(index) {
+                    this.shoppingList.splice(index, 1);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

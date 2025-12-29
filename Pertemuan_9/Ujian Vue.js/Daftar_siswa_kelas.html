@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="aset/logojpg.jpg">
+    <title>Daftar Siswa Kelas - Vue.js Examination</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/Daftar_siswa_kelas.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <nav class="navbar">
+           <a href="Home.html" class="title">
+                <div class="vue-icon">V</div>
+                Vue.js Examination
+            </a>
+           <div class="nav-links">
+                <a href="Daftar_belanja.html" class="nav-link" :class="{active: currentPage === 'shopping'}">Daftar belanja</a>
+                <a href="Daftar_siswa_kelas.html" class="nav-link" :class="{active: currentPage === 'students'}">Daftar Siswa Kelas</a>
+                <a href="Voting_sederhana.html" class="nav-link" :class="{active: currentPage === 'voting'}">Voting sederhana</a>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-user-graduate"></i> Daftar Siswa Kelas</h1>
+                <p>Input dan kelola data siswa kelas Anda</p>
+            </div>
+            
+            <!-- Student Form -->
+            <div class="student-form">
+                <div class="form-group">
+                    <input 
+                        v-model="newStudent" 
+                        @keyup.enter="addStudent" 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Masukkan nama siswa..."
+                        :disabled="isAdding"
+                    >
+                    <button @click="addStudent" class="add-btn" :disabled="!newStudent.trim() || isAdding">
+                        <i class="fas fa-plus"></i> Tambah Siswa
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Student List -->
+            <div class="student-list">
+                <div class="list-header">
+                    <h2 class="list-title">Daftar Siswa</h2>
+                    <div class="student-count">{{ students.length }} siswa</div>
+                </div>
+                
+                <!-- Empty State -->
+                <div v-if="students.length === 0" class="empty-message">
+                    <i class="fas fa-users"></i>
+                    <p>Belum ada data siswa!<br>Tambahkan siswa pertama Anda sekarang.</p>
+                </div>
+                
+                <!-- Student Items -->
+                <ul class="student-items" v-else>
+                    <li v-for="(student, index) in students" :key="student.id" class="student-item">
+                        <div class="student-number">{{ index + 1 }}</div>
+                        <div class="student-name">{{ student.name }}</div>
+                        <button @click="removeStudent(index)" class="delete-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    newStudent: '',
+                    students: [],
+                    isAdding: false
+                }
+            },
+            methods: {
+                addStudent() {
+                    if (this.newStudent.trim()) {
+                        this.isAdding = true;
+                        // Simulate async operation
+                        setTimeout(() => {
+                            this.students.push({
+                                id: Date.now(),
+                                name: this.newStudent.trim()
+                            });
+                            this.newStudent = '';
+                            this.isAdding = false;
+                        }, 100);
+                    }
+                },
+                removeStudent(index) {
+                    this.students.splice(index, 1);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
