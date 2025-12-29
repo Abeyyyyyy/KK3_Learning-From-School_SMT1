@@ -1,0 +1,242 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Navbar */
+.navbar {
+  background: white;
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-left h1 span {
+  color: #667eea;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-home {
+  background: #48bb78;
+  color: white;
+}
+
+.btn-home:hover {
+  background: #38a169;
+  transform: translateY(-2px);
+}
+
+.btn-todo {
+  background: #f6ad55;
+  color: white;
+}
+
+.btn-todo:hover {
+  background: #ed8936;
+  transform: translateY(-2px);
+}
+
+.btn-calculator {
+  background: #4299e1;
+  color: white;
+}
+
+.btn-calculator:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+}
+
+/* Notes App */
+.notes-app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .notes-app {
+    grid-template-columns: 1fr;
+  }
+}
+
+.notes-form {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.notes-list {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.form-header,
+.list-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-header h2,
+.list-header h2 {
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.form-header p,
+.list-header p {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.form-group input {
+  padding: 14px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #667eea;
+}
+
+.form-group textarea {
+  padding: 14px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  resize: vertical;
+  min-height: 150px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea:focus {
+  border-color: #667eea;
+}
+
+.save-btn {
+  padding: 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.save-btn:hover {
+  background: #5a67d8;
+}
+
+.note-item {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-left: 4px solid #667eea;
+  position: relative;
+}
+
+.note-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-content {
+  color: #4a5568;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.delete-note-btn {
+  padding: 6px 12px;
+  background: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.delete-note-btn:hover {
+  background: #c53030;
+}
+
+.empty-notes {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
+  font-style: italic;
+}

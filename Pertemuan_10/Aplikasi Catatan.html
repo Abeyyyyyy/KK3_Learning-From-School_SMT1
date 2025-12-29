@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catatan - Ujian Vue.js</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="CSS/Aplikasi Catatan.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-left">
+                <h1><span>📘</span> Ujian Praktikum Vue.js (CDN)</h1>
+            </div>
+            <div class="navbar-right">
+                <a href="Home.html" class="btn btn-home">Home</a>
+                <a href="Aplikasi To-do List.html" class="btn btn-todo">To-do List</a>
+                <a href="Aplikasi Kalkulator.html" class="btn btn-calculator">Kalkulator</a>
+            </div>
+        </nav>
+        
+        <!-- Notes App -->
+        <div class="notes-app">
+            <!-- Form Input -->
+            <div class="notes-form">
+                <div class="form-header">
+                    <h2>Aplikasi Catatan</h2>
+                    <p>Buat catatan baru Anda</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="judul">Judul Catatan</label>
+                    <input 
+                        type="text" 
+                        id="judul" 
+                        v-model="judulBaru" 
+                        placeholder="Masukkan judul catatan..."
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="isi">Isi Catatan</label>
+                    <textarea 
+                        id="isi" 
+                        v-model="isiBaru" 
+                        placeholder="Tulis isi catatan Anda di sini..."
+                    ></textarea>
+                </div>
+                
+                <button @click="simpanCatatan" class="save-btn">Simpan Catatan</button>
+            </div>
+            
+            <!-- Daftar Catatan -->
+            <div class="notes-list">
+                <div class="list-header">
+                    <h2>Daftar Catatan</h2>
+                    <p>Catatan yang telah Anda buat</p>
+                </div>
+                
+                <div v-if="catatan.length === 0" class="empty-notes">
+                    Belum ada catatan. Buat catatan pertama Anda!
+                </div>
+                
+                <div v-for="(note, index) in catatan" :key="index" class="note-item">
+                    <div class="note-title">
+                        <span>{{ note.judul }}</span>
+                        <button @click="hapusCatatan(index)" class="delete-note-btn">Hapus</button>
+                    </div>
+                    <div class="note-content">{{ note.isi }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    judulBaru: '',
+                    isiBaru: '',
+                    catatan: []
+                }
+            },
+            methods: {
+                simpanCatatan() {
+                    if (this.judulBaru.trim() !== '' && this.isiBaru.trim() !== '') {
+                        this.catatan.push({
+                            judul: this.judulBaru.trim(),
+                            isi: this.isiBaru.trim()
+                        });
+                        this.judulBaru = '';
+                        this.isiBaru = '';
+                    }
+                },
+                hapusCatatan(index) {
+                    this.catatan.splice(index, 1);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

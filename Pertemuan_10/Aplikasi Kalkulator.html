@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator - Ujian Vue.js</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="CSS/Aplikasi Kalkulator.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-left">
+                <h1><span>📘</span> Ujian Praktikum Vue.js (CDN)</h1>
+            </div>
+            <div class="navbar-right">
+                <a href="Home.html" class="btn btn-home">Home</a>
+                <a href="Aplikasi To-do List.html" class="btn btn-todo">To-do List</a>
+                <a href="Aplikasi Catatan.html" class="btn btn-notes">Catatan</a>
+            </div>
+        </nav>
+        
+        <!-- Calculator App -->
+        <div class="calculator-app">
+            <div class="calculator-header">
+                <h2>Aplikasi Kalkulator</h2>
+                <p>Lakukan perhitungan matematika sederhana</p>
+            </div>
+            
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="angka1">Angka Pertama</label>
+                    <input 
+                        type="number" 
+                        id="angka1" 
+                        v-model.number="angka1" 
+                        placeholder="Masukkan angka pertama"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="operasi">Operasi</label>
+                    <select id="operasi" v-model="operasi">
+                        <option value="+">Penjumlahan (+)</option>
+                        <option value="-">Pengurangan (-)</option>
+                        <option value="*">Perkalian (×)</option>
+                        <option value="/">Pembagian (÷)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="angka2">Angka Kedua</label>
+                    <input 
+                        type="number" 
+                        id="angka2" 
+                        v-model.number="angka2" 
+                        placeholder="Masukkan angka kedua"
+                    >
+                </div>
+            </div>
+            
+            <button @click="hitung" class="calculate-btn">Hitung</button>
+            
+            <div class="result-section">
+                <div class="result-label">Hasil Perhitungan:</div>
+                <div class="result-value" :class="{ 'error': hasError }">{{ hasil }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    angka1: null,
+                    angka2: null,
+                    operasi: '+',
+                    hasil: '',
+                    hasError: false
+                }
+            },
+            methods: {
+                hitung() {
+                    // Reset error state
+                    this.hasError = false;
+                    
+                    // Validasi input
+                    if (this.angka1 === null || this.angka2 === null || this.angka1 === '' || this.angka2 === '') {
+                        this.hasil = 'Masukkan kedua angka!';
+                        this.hasError = true;
+                        return;
+                    }
+                    
+                    let result;
+                    const num1 = parseFloat(this.angka1);
+                    const num2 = parseFloat(this.angka2);
+                    
+                    switch(this.operasi) {
+                        case '+':
+                            result = num1 + num2;
+                            break;
+                        case '-':
+                            result = num1 - num2;
+                            break;
+                        case '*':
+                            result = num1 * num2;
+                            break;
+                        case '/':
+                            if (num2 === 0) {
+                                this.hasil = 'Error: Pembagian dengan nol!';
+                                this.hasError = true;
+                                return;
+                            }
+                            result = num1 / num2;
+                            break;
+                        default:
+                            result = 0;
+                    }
+                    
+                    // Format hasil dengan maksimal 10 digit
+                    if (result % 1 !== 0) {
+                        this.hasil = parseFloat(result.toFixed(10)).toString();
+                    } else {
+                        this.hasil = result.toString();
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
