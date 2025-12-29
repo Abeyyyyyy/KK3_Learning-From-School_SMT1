@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  background-color: #f7f7f7;
+  color: #333;
+  text-align: center;
+}
+h1 {
+  color: #0056b3;
+}
+.note {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 20px;
+}

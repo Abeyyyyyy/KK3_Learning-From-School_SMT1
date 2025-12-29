@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+h1 {
+  color: #0056b3;
+  text-align: center;
+}
+.hasil {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: left;
+}
+.catatan {
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+  margin-top: 10px;
+}
