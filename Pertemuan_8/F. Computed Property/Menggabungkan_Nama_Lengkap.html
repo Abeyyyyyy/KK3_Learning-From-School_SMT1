@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed 1</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Nama Lengkap: {{ fullName }}</h2>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        firstName: "Andi",
+        lastName: "Saputra"
+      },
+      computed: {
+        fullName: function() {
+          return this.firstName + " " + this.lastName;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

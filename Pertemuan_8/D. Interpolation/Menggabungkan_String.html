@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interpolation 3</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <p>Halo, nama saya {{ firstName + " " + lastName }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        firstName: "Andi",
+        lastName: "Saputra"
+      }
+    });
+  </script>
+</body>
+</html>

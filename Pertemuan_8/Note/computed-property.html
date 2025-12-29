@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Computed Property</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .box { background: #fff0f6; padding: 15px; margin: 10px 0; border-radius: 5px; }
+    input { padding: 8px; margin: 5px 0; width: 100%; max-width: 200px; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>🧮 Computed Property Example</h2>
+    <div class="box">
+      <input v-model="firstName" placeholder="Nama Depan" />
+      <input v-model="lastName" placeholder="Nama Belakang" />
+      <p><strong>Nama Lengkap:</strong> {{ fullName }}</p>
+      <p><em>Perhatikan console — computed hanya jalan saat data berubah!</em></p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          firstName: '',
+          lastName: ''
+        }
+      },
+      computed: {
+        fullName() {
+          console.log('Computed: fullName dihitung ulang');
+          return `${this.firstName} ${this.lastName}`.trim();
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

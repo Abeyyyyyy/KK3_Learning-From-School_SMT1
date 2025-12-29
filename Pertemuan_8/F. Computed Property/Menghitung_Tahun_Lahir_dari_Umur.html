@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed 2</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <p>Umur saya: {{ age }}</p>
+    <p>Tahun lahir saya: {{ birthYear }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        age: 17,
+        currentYear: 2025
+      },
+      computed: {
+        birthYear: function() {
+          return this.currentYear - this.age;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

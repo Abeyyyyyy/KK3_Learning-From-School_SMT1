@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interpolation & Teks</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ message }}</h1>
+    <p>Selamat datang di {{ course }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: 'Halo Vue.js!',
+        course: 'Pemrograman Web'
+      }
+    })
+  </script>
+</body>
+</html>

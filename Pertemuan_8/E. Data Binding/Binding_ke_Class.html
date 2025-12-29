@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Binding 2</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+    .aktif { color: green; font-weight: bold; }
+    .non-aktif { color: red; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Contoh v-bind:class</h2>
+    <p :class="isActive ? 'aktif' : 'non-aktif'">Status User</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        isActive: true
+      }
+    });
+  </script>
+</body>
+</html>

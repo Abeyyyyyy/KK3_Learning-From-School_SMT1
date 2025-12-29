@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interpolation 2</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <p>Umur saya: {{ age }}</p>
+    <p>Tahun lahir saya: {{ currentYear - age }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        age: 17,
+        currentYear: 2025
+      }
+    });
+  </script>
+</body>
+</html>

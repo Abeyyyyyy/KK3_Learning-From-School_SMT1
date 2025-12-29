@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed 3</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <p>Pesan: "{{ message }}"</p>
+    <p>Panjang Pesan: {{ messageLength }} karakter</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: "Halo Vue.js"
+      },
+      computed: {
+        messageLength: function() {
+          return this.message.length;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

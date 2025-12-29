@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue.js - D, E, F & Mengembalikan Teks</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 30px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 12px;
+      margin: 8px 0;
+      width: 100%;
+      max-width: 350px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover:not(:disabled) {
+      background: #2ecc71;
+    }
+
+    button:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+    }
+
+    .output {
+      background: #f8f9fa;
+      padding: 15px;
+      border-left: 4px solid #3498db;
+      margin: 15px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 18px;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #7f8c8d;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Vue.js: Bagian D, E, F & Mengembalikan Teks</h1>
+    <div class="container">
+
+      <!-- 🅳 D. INTERPOLATION -->
+      <div class="section">
+        <span class="tag">Bagian D</span>
+        <h2>Interpolation — Menampilkan Data & Ekspresi</h2>
+        <div class="output">
+          Halo, <strong>{{ nama }}</strong>! 🎉
+        </div>
+        <div class="output">
+          10 + 20 = <strong>{{ 10 + 20 }}</strong>
+        </div>
+        <div class="output">
+          Teks asli: "{{ pesan }}" → jadi huruf besar: <strong>{{ pesan.toUpperCase() }}</strong>
+        </div>
+      </div>
+
+      <!-- 🅴 E. DATA BINDING -->
+      <div class="section">
+        <span class="tag">Bagian E</span>
+        <h2>Data Binding — Sinkronisasi Otomatis Input & Tampilan</h2>
+        <input v-model="teksInput" placeholder="Ketik apapun di sini..." />
+        <div class="output">
+          Kamu mengetik: <strong>"{{ teksInput }}"</strong>
+        </div>
+        <button :disabled="!teksInput">Kirim</button>
+        <div class="output" :style="{ color: warnaTeks, fontWeight: 'bold' }">
+          Panjang teks: {{ teksInput.length }} karakter → 
+          Status: <span v-if="teksInput.length > 5">CUKUP PANJANG 😊</span>
+                  <span v-else>TERLALU PENDEK 😅</span>
+        </div>
+      </div>
+
+      <!-- 🅵 F. COMPUTED PROPERTY -->
+      <div class="section">
+        <span class="tag">Bagian F</span>
+        <h2>Computed Property — Nilai Turunan yang Efisien</h2>
+        <input v-model="namaDepan" placeholder="Nama Depan" />
+        <input v-model="namaBelakang" placeholder="Nama Belakang" />
+        <div class="output">
+          <strong>Nama Lengkap (Computed):</strong> <span style="font-size: 1.3em;">{{ namaLengkap }}</span>
+        </div>
+        <div class="output" v-if="namaLengkapPanjang">
+          ✅ Nama lengkap Anda panjang: <strong>{{ namaLengkapPanjang }} karakter</strong>
+        </div>
+        <p class="note">💡 Buka Console Browser — computed hanya dijalankan saat datanya berubah!</p>
+      </div>
+
+      <!-- 📜 MENGEMBALIKAN TEKS -->
+      <div class="section">
+        <span class="tag">Mengembalikan Teks</span>
+        <h2>Menampilkan Teks Hasil Proses (Interpolation + Computed)</h2>
+        <div class="output">
+          🎯 Teks akhir yang dikembalikan: 
+          <blockquote style="margin: 10px 0; font-size: 1.1em; padding: 10px; background: #e3f2fd; border-radius: 8px;">
+            “Halo {{ namaLengkap || 'Teman' }}, kamu mengetik: <em>{{ teksInput || '—' }}</em>”
+          </blockquote>
+        </div>
+        <div class="output" :style="{ backgroundColor: teksInput ? '#e8f5e8' : '#ffebee', color: teksInput ? '#2e7d32' : '#c62828' }">
+          Status Input: <strong>{{ teksInput ? 'SUDAH DIISI' : 'KOSONG' }}</strong>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          // Untuk Interpolation (D)
+          nama: 'Developer Hebat',
+          pesan: 'vue itu keren',
+
+          // Untuk Data Binding (E)
+          teksInput: '',
+
+          // Untuk Computed Property (F)
+          namaDepan: '',
+          namaBelakang: ''
+        };
+      },
+
+      computed: {
+        // Untuk Data Binding (E)
+        warnaTeks() {
+          return this.teksInput.length > 5 ? '#27ae60' : '#e74c3c';
+        },
+
+        // Untuk Computed Property (F)
+        namaLengkap() {
+          console.log('[Computed] Menghitung namaLengkap...');
+          return `${this.namaDepan} ${this.namaBelakang}`.trim();
+        },
+
+        // Tambahan computed untuk "Mengembalikan Teks"
+        namaLengkapPanjang() {
+          const len = this.namaLengkap.length;
+          return len > 0 ? len : null;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

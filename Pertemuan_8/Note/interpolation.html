@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Interpolation</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .box { background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>✨ Interpolation Example</h2>
+    <div class="box">
+      <p>Halo, {{ nama }}!</p>
+      <p>5 + 3 = {{ 5 + 3 }}</p>
+      <p>Pesan: {{ message.toUpperCase() }}</p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          nama: 'Pengguna Vue',
+          message: 'selamat belajar vue.js'
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

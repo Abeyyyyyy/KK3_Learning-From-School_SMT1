@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Binding 1</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Contoh v-bind:href</h2>
+    <a v-bind:href="website">Kunjungi Website Vue.js</a>
+    <!-- cara singkat -->
+    <a :href="website">Link dengan sintaks singkat</a>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        website: "https://vuejs.org"
+      }
+    });
+  </script>
+</body>
+</html>

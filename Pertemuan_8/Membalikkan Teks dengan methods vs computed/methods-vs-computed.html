@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Methods vs Computed</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Teks Asli: {{ message }}</h2>
+
+    <!-- Menggunakan Computed -->
+    <p><b>Computed:</b> {{ reversedByComputed }}</p>
+
+    <!-- Menggunakan Methods -->
+    <p><b>Methods:</b> {{ reversedByMethod() }}</p>
+
+    <!-- Input untuk mengubah teks -->
+    <input v-model="message" placeholder="Ubah teks di sini" />
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: "Halo Vue.js"
+      },
+      computed: {
+        reversedByComputed: function() {
+          console.log('computed dijalankan');
+          return this.message.split('').reverse().join('');
+        }
+      },
+      methods: {
+        reversedByMethod: function() {
+          console.log('method dijalankan');
+          return this.message.split('').reverse().join('');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
