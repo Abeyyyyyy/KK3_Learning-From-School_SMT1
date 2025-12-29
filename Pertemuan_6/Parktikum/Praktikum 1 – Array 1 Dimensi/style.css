@@ -1,0 +1,36 @@
+body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h2 {
+      color: #333;
+      text-align: center;
+      border-bottom: 2px solid #4facfe;
+      padding-bottom: 10px;
+    }
+    .info {
+      background: #e7f3ff;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .friend-list {
+      list-style: none;
+      padding: 0;
+    }
+    .friend-item {
+      padding: 8px 15px;
+      border-bottom: 1px solid #ddd;
+      background: white;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    .star {
+      color: #ff9900;
+      font-weight: bold;
+    }

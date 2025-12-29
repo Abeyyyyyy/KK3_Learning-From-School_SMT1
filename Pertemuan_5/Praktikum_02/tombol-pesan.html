@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menampilkan Pesan dengan Tombol</title>
+    <link rel="stylesheet" href="tombol-pesan.css">
+</head>
+<body>
+        <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="praktikum.html" class="logo">Praktikum<span>JS</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="tombol-pesan.html" class="nav-link" onclick="alert('Halaman Tombol Pesan akan dibuka')">tombol-pesan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="operator-aritmatika.html" class="nav-link" onclick="alert('Halaman Operator Aritmatika akan dibuka')">operator-aritmatika</a>
+                </li>
+                <li class="nav-item">
+                    <a href="kasir-sembako.html" class="nav-link" onclick="alert('Halaman Kasir Sembako akan dibuka')">kasir-sembako</a>
+                </li>
+                <li class="nav-item">
+                    <a href="input-enter.html" class="nav-link" onclick="alert('Halaman Input Enter akan dibuka')">input-enter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Interaksi dengan Tombol</h1>
+        
+        <p>Klik tombol di bawah untuk menampilkan pesan khusus:</p>
+        
+        <button id="showMessageBtn" onclick="tampilkanPesan()">
+            Klik untuk Menampilkan Pesan
+        </button>
+        
+        <div id="pesanContainer"></div>
+    </div>
+
+    <script src="tombol-pesan.js"></script>
+
+</body>
+</html>

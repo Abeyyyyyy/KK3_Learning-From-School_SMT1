@@ -1,0 +1,56 @@
+ body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f0f2f5;
+    }
+    
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    h2 {
+      color: #8e44ad;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      background-color: #8e44ad;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      margin: 20px auto;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #7d3c98;
+    }
+    
+    #pesan {
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      background-color: #f8f9fa;
+      display: none;
+    }
+    
+    .show {
+      display: block !important;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }

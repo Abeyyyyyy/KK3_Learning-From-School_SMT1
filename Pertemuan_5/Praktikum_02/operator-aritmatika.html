@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Aritmatika - Perhitungan Geometri</title>
+    <link rel="stylesheet" href="operator-aritmatika.css">
+</head>
+<body>
+
+        <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="praktikum.html" class="logo">Praktikum<span>JS</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="tombol-pesan.html" class="nav-link" onclick="alert('Halaman Tombol Pesan akan dibuka')">tombol-pesan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="operator-aritmatika.html" class="nav-link" onclick="alert('Halaman Operator Aritmatika akan dibuka')">operator-aritmatika</a>
+                </li>
+                <li class="nav-item">
+                    <a href="kasir-sembako.html" class="nav-link" onclick="alert('Halaman Kasir Sembako akan dibuka')">kasir-sembako</a>
+                </li>
+                <li class="nav-item">
+                    <a href="input-enter.html" class="nav-link" onclick="alert('Halaman Input Enter akan dibuka')">input-enter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Operator Aritmatika dalam Perhitungan Geometri</h1>
+        
+        <!-- Keliling Persegi Panjang -->
+        <h2>📏 Keliling Persegi Panjang</h2>
+        <p>Formula: <strong>2 × (panjang + lebar)</strong></p>
+        <div class="formula">keliling = 2 × (panjang + lebar)</div>
+        
+        <div class="input-group">
+            <label for="panjang">Panjang:</label>
+            <input type="number" id="panjang" value="10">
+            <label for="lebar">Lebar:</label>
+            <input type="number" id="lebar" value="5">
+            <button onclick="hitungKeliling()">Hitung Keliling</button>
+        </div>
+        
+        <div class="result" id="kelilingResult"></div>
+
+        <!-- Sisa Bagi -->
+        <h2>➗ Sisa Bagi (%)</h2>
+        <p>Menghitung sisa dari pembagian menggunakan operator modulo (%)</p>
+        <div class="formula">sisa = 25 % 4</div>
+        
+        <div class="result" id="sisaBagiResult"></div>
+
+        <!-- Luas Segitiga -->
+        <h2>🔺 Luas Segitiga</h2>
+        <p>Formula: <strong>½ × alas × tinggi</strong></p>
+        <div class="formula">luas = 0.5 × alas × tinggi</div>
+        
+        <div class="input-group">
+            <label for="alas">Alas:</label>
+            <input type="number" id="alas" value="8">
+            <label for="tinggi">Tinggi:</label>
+            <input type="number" id="tinggi" value="6">
+            <button onclick="hitungLuasSegitiga()">Hitung Luas</button>
+        </div>
+        
+        <div class="result" id="luasSegitigaResult"></div>
+    </div>
+
+    <script src="operator-aritmatika.js"></script>
+</body>
+</html>

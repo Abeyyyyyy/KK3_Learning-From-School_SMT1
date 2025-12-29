@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Teman Se Kelas</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #d35400;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .friend-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .friend-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      margin-bottom: 10px;
+      background: #fdf6e3;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      border-left: 4px solid #f39c12;
+    }
+
+    .friend-item:hover {
+      transform: translateX(5px);
+      background: #fae0c0;
+    }
+
+    .friend-number {
+      background: #e67e22;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .friend-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .friend-name.star::after {
+      content: " ★";
+      color: #f39c12;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>👥 Daftar Teman Se Kelas</h1>
+      <div 
+        v-for="(nama, index) in temanSeKelas" 
+        :key="index" 
+        class="friend-item"
+      >
+        <div class="friend-number">{{ index + 1 }}</div>
+        <div 
+          class="friend-name" 
+          :class="{ 'star': nama.includes('*') }"
+        >
+          {{ nama.replace('*', '') }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue
+
+    createApp({
+      setup() {
+        const temanSeKelas = ref([
+          'ABIYYA HAMDAN NURWANDHA',
+          'ALIYYI AKBAR EL KHOMEINI',
+          'AQBIL RASHIF ANSHARI',
+          'BAGAS BIMA PRADANA*',
+          'BINTANG PUTRA SUGIATNO',
+          'DESTIA RAHMA',
+          'DHAFIN NAUFAL RIDHWAN',
+          'FACHMIE FIRMANSYAH',
+          'FAQIH AUNILLAH',
+          'FITHRI KHAIRUNNISSA AGUSTINA',
+          'GIANNI ZIDANE RIVANNO SETIAWAN*',
+          'IKHSAN TRI SAPUTRA*',
+          'ILHAM FATTAHILLAH ELANDI',
+          'KHALIFAH SAYID LATHIF',
+          'KRYSA PUTRI HIDAYAH',
+          'MARSHAL RAISYAN REVANALDI',
+          'MOCHAMAD ILHAM KAUTSAR PRATAMA',
+          'MOZA NANDA WIJAYA',
+          'MUHAMAD KEYSAN ARIF',
+          'MUHAMMAD ARI GILANG RAMADHAN',
+          'MUHAMMAD FAARIS ADZIKRA',
+          'MUHAMMAD HAIKAL AFWAN',
+          'MUHAMMAD KHOERUDIN',
+          'MUHAMMAD RIFQI ARYA FIRDAUS',
+          'NAURAH SALSABILA',
+          'RADEN DINDA NASYWATUNNISA',
+          'RADITYA NURAKMAL IRSYAD*',
+          'RAFIF AKBAR MALIQ FIRDAUS',
+          'RAKA AUGUSTA SYA\'BANI',
+          'RASYA ARSHAVIN LEKSMAWAN',
+          'RESHAD AZHAR FADLURRAHMAN KALSAN',
+          'SITI SHAFA ZHARFAN ARIANI',
+          'WANDA NAZRA',
+          'YASER ALFONSO*',
+          'ZAENAL ARIFIN',
+          'ZIVEN LARENDRA'
+        ])
+
+        return {
+          temanSeKelas
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Status Kelulusan - Vue.js</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .nilai-box {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .status-lulus {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      background: #28a745;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .status-tidak-lulus {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      background: #dc3545;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 1.2rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      width: 80%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>🎓 Cek Status Kelulusan</h1>
+      <p>Masukkan nilai kamu (0 - 100):</p>
+      <input 
+        type="number" 
+        v-model.number="nilai" 
+        min="0" 
+        max="100" 
+        placeholder="Contoh: 85"
+      >
+
+      <div class="nilai-box">{{ nilai }}</div>
+
+      <!-- Gunakan v-if / v-else untuk menampilkan status -->
+      <div v-if="nilai >= 75" class="status-lulus">
+        ✅ LULUS
+      </div>
+      <div v-else class="status-tidak-lulus">
+        ❌ TIDAK LULUS
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue
+
+    createApp({
+      setup() {
+        // Nilai default
+        const nilai = ref(80)
+
+        return {
+          nilai
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

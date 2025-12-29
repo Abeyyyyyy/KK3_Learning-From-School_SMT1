@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f0f8ff, #e6e6fa);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Tabel {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #444;
+    font-size: 28px;
+}
+
+p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: blue;
+}
+
+#paragraf-2 {
+    color: green;
+    font-style: italic;
+}
+
+.paragraf-3 {
+    color: maroon;
+    font-weight: bold;
+}

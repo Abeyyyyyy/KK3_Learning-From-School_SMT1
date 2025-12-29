@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Counter Vue.js (Bisa Minus)</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .counter-app {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .counter-value {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 0 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-tambah {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .btn-kurang {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="counter-app">
+      <h1>Vue Counter App (Bisa Minus)</h1>
+      <div class="counter-value">{{ counter }}</div>
+      <button 
+        class="btn btn-tambah" 
+        @click="counter++"
+      >
+        ➕ Tambah
+      </button>
+      <button 
+        class="btn btn-kurang" 
+        @click="decrement"
+      >
+        ➖ Kurang
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue
+
+    createApp({
+      setup() {
+        const counter = ref(0)
+
+        function decrement() {
+          counter.value--
+        }
+
+        return {
+          counter,
+          decrement
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

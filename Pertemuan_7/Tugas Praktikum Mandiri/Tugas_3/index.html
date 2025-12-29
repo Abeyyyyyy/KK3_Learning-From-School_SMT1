@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Makanan Favorit - Vue.js</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #e67e22;
+      margin-bottom: 30px;
+    }
+
+    .food-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .food-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: #fdf5e6;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .food-item:hover {
+      transform: translateX(5px);
+      background: #fae5c8;
+    }
+
+    .food-number {
+      background: #e67e22;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .food-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>🍜 Makanan Favorit Saya</h1>
+      <ul class="food-list">
+        <li 
+          v-for="(makanan, index) in makananFavorit" 
+          :key="index" 
+          class="food-item"
+        >
+          <div class="food-number">{{ index + 1 }}</div>
+          <div class="food-name">{{ makanan }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue
+
+    createApp({
+      setup() {
+        const makananFavorit = ref([
+          'Nasi Goreng',
+          'Bakso',
+          'Sate Ayam',
+          'Rendang',
+          'Mie Ayam',
+          'Martabak Manis',
+          'Pempek'
+        ])
+
+        return {
+          makananFavorit
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

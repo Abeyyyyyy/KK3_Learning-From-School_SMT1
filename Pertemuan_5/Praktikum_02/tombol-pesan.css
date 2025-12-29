@@ -1,0 +1,118 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa, #dfe9f3);
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    color: white;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.logo span {
+    color: #3498db;
+}
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+.nav-link:hover {
+    background: #3498db;
+}
+
+/* Konten utama */
+.container {
+    max-width: 700px;
+    background: white;
+    border-radius: 12px;
+    padding: 35px;
+    margin: 30px auto;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+/* Tombol */
+button {
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+button:hover {
+    background: linear-gradient(90deg, #2980b9, #2471a3);
+    transform: translateY(-2px);
+}
+button:active {
+    transform: translateY(1px);
+}
+
+/* Pesan */
+.message {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 18px;
+    display: inline-block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animasi halus */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input dengan Event Enter</title>
+    <link rel="stylesheet" href="input-enter.css">
+</head>
+<body>
+        <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="praktikum.html" class="logo">Praktikum<span>JS</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="tombol-pesan.html" class="nav-link" onclick="alert('Halaman Tombol Pesan akan dibuka')">tombol-pesan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="operator-aritmatika.html" class="nav-link" onclick="alert('Halaman Operator Aritmatika akan dibuka')">operator-aritmatika</a>
+                </li>
+                <li class="nav-item">
+                    <a href="kasir-sembako.html" class="nav-link" onclick="alert('Halaman Kasir Sembako akan dibuka')">kasir-sembako</a>
+                </li>
+                <li class="nav-item">
+                    <a href="input-enter.html" class="nav-link" onclick="alert('Halaman Input Enter akan dibuka')">input-enter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Input Text dengan Event Enter</h1>
+        
+        <p class="instruction">Ketik sesuatu di kotak di bawah, lalu tekan tombol <strong>Enter</strong> pada keyboard Anda</p>
+        
+        <div class="input-group">
+            <input 
+                type="text" 
+                id="textInput" 
+                placeholder="Ketik di sini..." 
+                onkeypress="handleKeyPress(event)"
+            >
+        </div>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script src="input-enter.js"></script>
+</body>
+</html>

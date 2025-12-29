@@ -1,0 +1,36 @@
+body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f0f2f5;
+    }
+    
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    h2 {
+      color: #27ae60;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .result {
+      background-color: #e8f5e9;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #27ae60;
+      text-align: center;
+      font-size: 18px;
+    }
+    
+    .formula {
+      text-align: center;
+      color: #7f8c8d;
+      font-style: italic;
+      margin: 15px 0;
+    }

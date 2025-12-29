@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir Sembako - Perhitungan Harga</title>
+    <link rel="stylesheet" href="kasir-sembako.css">
+</head>
+<body>
+
+        <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="praktikum.html" class="logo">Praktikum<span>JS</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="tombol-pesan.html" class="nav-link" onclick="alert('Halaman Tombol Pesan akan dibuka')">tombol-pesan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="operator-aritmatika.html" class="nav-link" onclick="alert('Halaman Operator Aritmatika akan dibuka')">operator-aritmatika</a>
+                </li>
+                <li class="nav-item">
+                    <a href="kasir-sembako.html" class="nav-link" onclick="alert('Halaman Kasir Sembako akan dibuka')">kasir-sembako</a>
+                </li>
+                <li class="nav-item">
+                    <a href="input-enter.html" class="nav-link" onclick="alert('Halaman Input Enter akan dibuka')">input-enter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🛒 Kasir Sembako</h1>
+        
+        <div class="info">
+            <h3>Daftar Harga Sembako</h3>
+            <table>
+                <tr>
+                    <th>Barang</th>
+                    <th>Harga</th>
+                    <th>Satuan</th>
+                </tr>
+                <tr>
+                    <td>Beras</td>
+                    <td class="price">Rp 12.000</td>
+                    <td>per kg</td>
+                </tr>
+                <tr>
+                    <td>Gula</td>
+                    <td class="price">Rp 14.000</td>
+                    <td>per kg</td>
+                </tr>
+                <tr>
+                    <td>Minyak</td>
+                    <td class="price">Rp 17.000</td>
+                    <td>per kg</td>
+                </tr>
+                <tr>
+                    <td>Telur</td>
+                    <td class="price">Rp 2.500</td>
+                    <td>per butir</td>
+                </tr>
+                <tr>
+                    <td>Tepung</td>
+                    <td class="price">Rp 12.000</td>
+                    <td>per kg</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h2>Hitung Harga Barang</h2>
+        <p>Pilih barang dan masukkan jumlah yang ingin dibeli:</p>
+        
+        <div class="form-group">
+            <select id="barang">
+                <option value="">Pilih barang...</option>
+                <option value="beras">Beras (Rp 12.000/kg)</option>
+                <option value="gula">Gula (Rp 14.000/kg)</option>
+                <option value="minyak">Minyak (Rp 17.000/kg)</option>
+                <option value="telur">Telur (Rp 2.500/butir)</option>
+                <option value="tepung">Tepung (Rp 12.000/kg)</option>
+            </select>
+            
+            <input type="number" id="jumlah" placeholder="Jumlah" min="1" value="1">
+            
+            <button onclick="hitungHarga()">
+                <span class="emoji">🧮</span> Hitung Harga
+            </button>
+        </div>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script src="kasir-sembako.js"></script>
+</body>
+</html>
